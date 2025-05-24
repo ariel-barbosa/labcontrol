@@ -1,0 +1,42 @@
+{% extends 'labs/base.html' %}
+
+{% block title %}{{ laboratorio.nome }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">{{ laboratorio.nome }}</h2>
+                <p class="card-text">{{ laboratorio.descricao }}</p>
+                <p><strong>Recursos:</strong></p>
+                <p>{{ laboratorio.recursos|linebreaks }}</p>
+                <p class="card-text"><small class="text-muted">Capacidade: {{ laboratorio.capacidade }} pessoas</small></p>
+                <a href="{% url 'reservar' %}?laboratorio={{ laboratorio.pk }}" class="btn btn-primary">Reservar este laboratório</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Reservas para Hoje</h5>
+            </div>
+            <div class="card-body">
+                {% if reservas_hoje %}
+                <ul class="list-group list-group-flush">
+                    {% for reserva in reservas_hoje %}
+                    <li class="list-group-item">
+                        {{ reserva.hora_inicio|time:"H:i" }} - {{ reserva.hora_fim|time:"H:i" }}<br>
+                        <small>{{ reserva.usuario.username }}</small>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Nenhuma reserva para hoje.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

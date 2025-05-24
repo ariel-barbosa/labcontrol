@@ -1,0 +1,28 @@
+{% extends 'labs/base.html' %}
+
+{% block title %}Excluir Laboratório{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Excluir Laboratório</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <p>Você tem certeza que deseja excluir o laboratório <strong>{{ laboratorio.nome }}</strong>?</p>
+            <p class="text-danger">Esta ação não pode ser desfeita!</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Confirmar Exclusão
+                    </button>
+                    <a href="{% url 'admin_laboratorios' %}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

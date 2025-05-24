@@ -1,0 +1,85 @@
+{% extends 'labs/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Reservar Laboratório{% endblock %}
+
+{% block extra_head %}
+  <!-- jQuery UI CSS -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <!-- Timepicker addon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
+  <style>
+    .ui-datepicker {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      z-index: 1000 !important;
+    }
+    .timepicker {
+      width: 100px !important;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+  
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Reservar Laboratório</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" id="reserva-form">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary px-4">Confirmar Reserva</button>
+                        <a href="{% url 'laboratorios' %}" class="btn btn-outline-secondary ml-2">Cancelar</a>
+                    </div>  
+                </form>
+            </div>
+        </div>
+  
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- jQuery, jQuery UI e plugins -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/i18n/jquery-ui-i18n.min.js"></script>
+
+  <script>
+    $(function() {
+      // Datepicker
+      $.datepicker.setDefaults($.datepicker.regional["pt-BR"]);
+      $(".datepicker").datepicker({
+        dateFormat: "dd/mm/yy",
+        minDate: 0,
+        changeMonth: true,
+        changeYear: truea
+      });
+
+      // Timepicker
+      $(".timepicker").timepicker({
+        timeFormat: 'HH:mm',
+        stepMinute: 15,
+        hourMin: 8,
+        hourMax: 20
+      });
+
+      // Validação do formulário
+      $('#reserva-form').submit(function(e) {
+        var horaInicio = $('[name="hora_inicio"]').val();
+        var horaFim = $('[name="hora_fim"]').val();
+        
+        if (horaInicio && horaFim && horaFim <= horaInicio) {
+          alert('A hora de término deve ser após a hora de início.');
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
+{% endblock %}

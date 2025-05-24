@@ -1,0 +1,48 @@
+{% extends 'labs/base.html' %}
+
+{% block title %}Minhas Reservas{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Minhas Reservas</h2>
+
+{% if reservas %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Laboratório</th>
+                <th>Data</th>
+                <th>Horário</th>
+                <th>Motivo</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva.laboratorio.nome }}</td>
+                <td>{{ reserva.data|date:"d/m/Y" }}</td>
+                <td>{{ reserva.hora_inicio|time:"H:i" }} - {{ reserva.hora_fim|time:"H:i" }}</td>
+                <td>{{ reserva.motivo|truncatechars:30 }}</td>
+                <td>
+                    <span class="badge bg-{% if reserva.status == 'confirmado' %}success{% elif reserva.status == 'cancelado' %}danger{% else %}warning{% endif %}">
+                        {{ reserva.get_status_display }}
+                    </span>
+                </td>
+                <td>
+                    {% if reserva.status == 'confirmado' and reserva.data >= current_date %}
+                    <a href="{% url 'cancelar_reserva' reserva.pk %}" class="btn btn-sm btn-danger">Cancelar</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    Você não possui nenhuma reserva.
+</div>
+{% endif %}
+{% endblock %}

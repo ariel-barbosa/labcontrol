@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabFlow - {% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap + Ícones -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
+    <!-- jQuery UI Calendar -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% load crispy_forms_tags %}
+
+    <!-- Background + Efeitos -->
+    <style>
+        /* Adicione estas regras CSS */
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('{% static "img/fundo.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+            backdrop-filter: blur(0px);
+            transition: backdrop-filter 0.4s ease;
+        }
+        
+        /* O resto do seu CSS permanece igual */
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('{% static "img/fundo.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            backdrop-filter: blur(0px);
+            transition: backdrop-filter 0.4s ease;
+        }
+
+        .content-blur {
+            backdrop-filter: blur(8px);
+        }
+
+        .main-content {
+            padding: 30px;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .navbar,
+        footer {
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                <img src="{% static 'img/logoLabFlow-3.png' %}" alt="Logo do Sistema" height="100" class="me-2">
+                Controle de Laboratórios
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'laboratorios' %}"><i class="bi bi-building"></i> Laboratórios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'reservar' %}"><i class="bi bi-calendar-plus"></i> Reservar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'minhas_reservas' %}"><i class="bi bi-list-check"></i> Minhas Reservas</a></li>
+                    {% endif %}
+                </ul>
+
+                {% if user.is_authenticated and user.is_superuser or user.is_admin %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-gear"></i> Administração
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li><a class="dropdown-item" href="/admin/" target="_blank">Painel Admin Django</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><span class="navbar-text me-2"><i class="bi bi-person-circle"></i> Olá, {{ user.username }}</span></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Entrar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="bi bi-person-plus"></i> Cadastre-se</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="content-wrapper">
+        <div class="container mt-4 main-content" id="mainContent">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} d-flex align-items-center">
+                    <i class="bi {% if message.tags == 'success' %}bi-check-circle-fill{% elif message.tags == 'danger' %}bi-exclamation-triangle-fill{% else %}bi-info-circle-fill{% endif %} me-2"></i>
+                    <div>{{ message }}</div>
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+<!-- Rodapé -->
+<!-- Rodapé -->
+<footer class="mt-5 py-4 bg-light text-center text-dark" style="font-size: 1.1rem; font-family: Arial, sans-serif;">
+    <div class="container">
+        <p class="mb-2"><strong>Sistema de Controle de Laboratórios - Lab Flow</strong></p>
+        <p class="mb-0">&copy; {% now "Y" %} SENAI. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+
+
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
+    <script>
+        // Aplica idioma pt-BR no calendário
+        flatpickr.localize(flatpickr.l10ns.pt);
+
+        // Remove alertas depois de 5 segundos
+        setTimeout(() => {
+            document.querySelectorAll('.alert').forEach(alert => {
+                alert.classList.add('fade');
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 5000);
+
+        // Desfoca fundo ao clicar em links principais (opcional)
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const links = document.querySelectorAll('a.nav-link, .dropdown-item');
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                contentWrapper.classList.add('content-blur');
+            });
+        });
+    </script>
+</body>
+</html>

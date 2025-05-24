@@ -1,0 +1,22 @@
+{% extends 'labs/base.html' %}
+
+{% block title %}Início{% endblock %}
+
+{% block content %}
+
+    <h1 class="display-4">Bem-vindo ao Lab Flow</h1>
+    <p class="lead">Gerencie e reserve laboratórios de forma eficiente.</p>
+    <hr class="my-4">
+    <p>Este sistema permite que professores e alunos reservem laboratórios sem conflitos de horários.</p>
+
+    
+    
+     {% if not user.is_authenticated %}
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Registrar</a>
+        <a class="btn btn-success btn-lg ms-2" href="{% url 'login' %}" role="button">Entrar</a>
+    </div>
+    {% endif %}
+    
+
+{% endblock %}

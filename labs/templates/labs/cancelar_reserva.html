@@ -1,0 +1,28 @@
+{% extends 'labs/base.html' %}
+
+{% block title %}Cancelar Reserva{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4>Cancelar Reserva</h4>
+            </div>
+            <div class="card-body">
+                <p>Cancelar a seguinte reserva:</p>
+                <ul>
+                    <li><strong>Laboratório:</strong> {{ reserva.laboratorio.nome }}</li>
+                    <li><strong>Data:</strong> {{ reserva.data|date:"d/m/Y" }}</li>
+                    <li><strong>Horário:</strong> {{ reserva.hora_inicio|time:"H:i" }} - {{ reserva.hora_fim|time:"H:i" }}</li>
+                </ul>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Confirmar Cancelamento</button>
+                    <a href="{% url 'minhas_reservas' %}" class="btn btn-secondary">Voltar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
