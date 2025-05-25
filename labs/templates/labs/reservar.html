@@ -25,21 +25,21 @@
 {% block content %}
 
   
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Reservar Laboratório</h4>
-            </div>
-            <div class="card-body">
-                <form method="POST" id="reserva-form">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <div class="form-group mt-4">
-                        <button type="submit" class="btn btn-primary px-4">Confirmar Reserva</button>
-                        <a href="{% url 'laboratorios' %}" class="btn btn-outline-secondary ml-2">Cancelar</a>
-                    </div>  
-                </form>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Reservar Laboratório</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" id="reserva-form">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary px-4">Confirmar Reserva</button>
+                <a href="{% url 'laboratorios' %}" class="btn btn-outline-secondary ml-2">Cancelar</a>
+            </div>  
+        </form>
+    </div>
+</div>
   
 
 {% endblock %}

@@ -28,15 +28,6 @@ class Reserva(models.Model):
     data = models.DateField()
     hora_inicio = models.TimeField()
     hora_fim = models.TimeField()
-    
-    STATUS_CHOICES = [
-        ('pendente', 'Pendente'),
-        ('aprovado', 'Aprovado'),
-        ('rejeitado', 'Rejeitado'),
-        ('cancelado', 'Cancelado'),
-    ]
-    
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pendente')
 
     def __str__(self):
         return f'{self.laboratorio.nome} - {self.data} ({self.hora_inicio} - {self.hora_fim})'

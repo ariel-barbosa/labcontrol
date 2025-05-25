@@ -4,12 +4,15 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib import messages
+from django.utils.timezone import localdate
 
 from .models import Laboratorio, Reserva
 from .forms import LaboratorioForm, RegisterForm, ReservaForm
 
 def home(request):
+    atualizar_disponibilidade_laboratorios()
     return render(request, 'labs/home.html')
+
 
 
 class RegisterView(View):
@@ -40,9 +43,26 @@ class LaboratorioListView(ListView):
         return Laboratorio.objects.filter(disponivel=True)
 
 
+from datetime import date
+from django.shortcuts import render, get_object_or_404
+from .models import Laboratorio, Reserva
+
 def laboratorio_detail(request, pk):
-    laboratorio = get_object_or_404(Laboratorio, pk=pk)
-    return render(request, 'labs/laboratorio_detail.html', {'laboratorio': laboratorio})
+    atualizar_disponibilidade_laboratorios()
+
+    laboratorio = get_object_or_404(Laboratorio, id=pk)
+    hoje = date.today()
+    reservas_hoje = Reserva.objects.filter(
+        laboratorio=laboratorio,
+        data=hoje
+    ).order_by('hora_inicio')
+
+    return render(request, 'labs/laboratorio_detail.html', {
+        'laboratorio': laboratorio,
+        'reservas_hoje': reservas_hoje,
+    })
+
+
 
 
 # ✅ View de reserva com aprovação automática
@@ -115,3 +135,22 @@ def admin_delete_laboratorio(request, pk):
     laboratorio = get_object_or_404(Laboratorio, pk=pk)
     laboratorio.delete()
     return redirect('admin_laboratorios')
+
+
+from django.utils import timezone
+from datetime import datetime
+
+def atualizar_disponibilidade_laboratorios():
+    agora = timezone.localtime()
+
+    laboratorios = Laboratorio.objects.all()
+    for lab in laboratorios:
+        reservas_ativas = Reserva.objects.filter(
+            laboratorio=lab,
+            data=agora.date(),
+            hora_fim__gt=agora.time()
+        )
+        # Se não há reservas ativas, o laboratório está disponível
+        lab.disponivel = not reservas_ativas.exists()
+        lab.save()
+

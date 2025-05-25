@@ -12,7 +12,6 @@
                 <p><strong>Recursos:</strong></p>
                 <p>{{ laboratorio.recursos|linebreaks }}</p>
                 <p class="card-text"><small class="text-muted">Capacidade: {{ laboratorio.capacidade }} pessoas</small></p>
-                <a href="{% url 'reservar' %}?laboratorio={{ laboratorio.pk }}" class="btn btn-primary">Reservar este laboratório</a>
             </div>
         </div>
     </div>
