@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho de Conclusão de Curso - Sistema de Controle de Reserva de Laboratórios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+        }
+        h1 {
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin-top: 25px;
+        }
+        h4 {
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+        .author {
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .orientador {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .local-data {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .sumario {
+            margin: 30px 0;
+        }
+        .sumario h2 {
+            text-align: center;
+        }
+        .sumario ol {
+            padding-left: 20px;
+        }
+        .sumario li {
+            margin-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .figure {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .figure img {
+            max-width: 100%;
+            height: auto;
+        }
+        .figure p {
+            text-align: center;
+            font-style: italic;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Técnico em Desenvolvimento de Sistemas</h1>
+        <h2>Sistema de controle de reserva de laboratórios</h2>
+        
+        <div class="author">Ariel Barbosa Santos</div>
+        <div class="orientador">Orientador: Prof. Márcio Carmona Costa</div>
+        <div class="local-data">Itumbiara – Goiás<br>2025</div>
+
+        <div class="sumario">
+            <h2>Sumário</h2>
+            <ol>
+                <li>Introdução</li>
+                <li>Escopo</li>
+                <li>Fundamentação Teórica</li>
+                <li>Resultados e Discussões
+                    <ol type="a">
+                        <li>Requisitos Funcionais</li>
+                        <li>Requisitos Não Funcionais</li>
+                    </ol>
+                </li>
+                <li>Levantamento de Requisitos e Análise da Situação Atual</li>
+                <li>Modelagem do Sistema
+                    <ol type="a">
+                        <li>Diagrama de Caso de Uso (UML)</li>
+                        <li>Protótipos de Interface</li>
+                        <li>Modelagem de Dados</li>
+                    </ol>
+                </li>
+                <li>Desenvolvimento e Implementação
+                    <ol type="a">
+                        <li>Visão Geral do Sistema</li>
+                        <li>Tecnologias Utilizadas</li>
+                        <li>Estrutura do Projeto</li>
+                        <li>Modelagem de Dados</li>
+                        <li>Funcionalidades Implementadas</li>
+                        <li>Interface do Usuário</li>
+                        <li>Testes Realizados</li>
+                        <li>Considerações Finais</li>
+                    </ol>
+                </li>
+                <li>Referências</li>
+            </ol>
+        </div>
+
+        <h2>1. Introdução</h2>
+        <p>Existe uma demanda que é comum em várias escolas e instituições de ensino; O controle de uso de laboratórios que, muitas vezes geram conflitos de horários ou de ocupação do ambiente de estudo. Para solucionar esse problema devemos começar obtendo informações importantes sobre a realidade da instituição. Podemos pensar em um sistema que, junto a escola, irá ajudar a facilitar o acesso aos laboratórios, gerando um fluxo de reserva e uso dos laboratórios.</p>
+        <p>O ponto principal desse projeto é diminuir ao máximo os contratempos que são causados por falta de um gerenciamento desses ambientes de estudo e pesquisa. Esse projeto visa ajudar professores e alunos a terem uma experiência agradável no dia-a-dia de uma escola ou universidade.</p>
+        <p>É necessário a pesquisa de caso em um cenário real para obter dados precisos do cenário da instituição. Para tal resultado, foi elaborado um questionário com 10 perguntas para, os funcionários que fazem uso do ambiente de ensino possam responder. Com os dados coletados e analisados pode-se dar início ao desenvolvimento de um Sistema de Controle de Laboratórios.</p>
+        <p>O conceito usado pode ser estendido para, não apenas laboratórios, mas também para salas de reuniões, bibliotecas ou salas de vídeo. Nesse caso específico, usando como cenário real a Escola Senai de Itumbiara -- GO, será aplicado para laboratórios de mecânica, informática e química.</p>
+
+        <h2>2. Escopo</h2>
+        <p>O escopo deste trabalho abrange a análise da problemática enfrentada por diversas instituições de ensino, em relação ao controle de uso de laboratórios e outros ambientes de estudo, como salas de reuniões e bibliotecas. O foco principal é apresentar uma solução para a otimização do gerenciamento de reservas desses espaços, com ênfase na redução de conflitos de horários e na melhoria da experiência de alunos e professores.</p>
+        <p>Iniciaremos com a coleta de dados sobre a realidade da Escola Senai de Itumbiara -- GO, por meio de um questionário direcionado aos funcionários que utilizam esses ambientes. A partir das respostas, será possível compreender as dificuldades atuais e definir as bases para o desenvolvimento de um Sistema de Controle de Laboratórios, visando uma gestão eficiente desses espaços.</p>
+        <p>O escopo do trabalho se limita a uma análise inicial da situação na Escola Senai de Itumbiara, especificamente para os laboratórios de mecânica, informática e química, mas a solução proposta poderá ser adaptada para outras instituições e diferentes tipos de ambientes de estudo e pesquisa.</p>
+        <p>Nas seções seguintes, abordaremos a importância da pesquisa de campo, a metodologia para coleta de dados, o processo de desenvolvimento do sistema proposto e suas implicações práticas para o cotidiano acadêmico. O objetivo é oferecer uma solução que atenda às necessidades específicas da escola, mas que também possa ser escalável e aplicada em contextos semelhantes.</p>
+
+        <h2>3. Fundamentação Teórica</h2>
+        <p>Uma boa gestão de recursos em uma instituição, será válido apenas quando esses recursos forem controlados de forma fluída e eficiente por um sistema. Não há necessidade de ser um sistema de computador, porém é preciso ter como fundamento uma estrutura que auxilie nessas tarefas.</p>
+        <p>Um sistema de reserva de laboratórios, agora falando especificamente de um software, é uma maneira de solucionar o problema de conflitos e com isso, maximizar a utilização de espaços.</p>
+        <p>Existem exemplos práticos de sistemas de reserva que podemos ver no dia-a-dia; hotéis, salas de conferência ou até outros ambientes acadêmicos.</p>
+
+        <h2>4. Resultados e Discussões</h2>
+        <p>Após recolher informações, foi possível elaborar artefato que darão um norte para o desenvolvimento, dentre eles está o diagrama de Caso de Uso (UML). Pode -- se assim apontar os requisitos Funcionais e Não Funcionais assim como as regras de negócio.</p>
+        <p>A elaboração do diagrama de Caso de Uso (UML) foi crucial para visualizar a interação entre os usuários e o sistema. Este artefato permitiu identificar os atores principais, como professores, alunos e administradores, e suas respectivas ações dentro do sistema. Através dos casos de uso, foi possível detalhar os processos de reserva, cancelamento, gerenciamento e consulta de disponibilidade dos laboratórios. Essa representação gráfica facilitou a compreensão dos requisitos funcionais e a definição das regras de negócio, garantindo que o sistema atendesse às necessidades específicas da Escola Senai de Itumbiara.</p>
+        <p>Além do diagrama de Caso de Uso, outras ferramentas e técnicas foram utilizadas para aprofundar a análise e o design do sistema. A criação de protótipos de interface, por exemplo, permitiu simular a experiência do usuário e validar a usabilidade do sistema antes do desenvolvimento. A modelagem de dados foi essencial para definir a estrutura do banco de dados e garantir a integridade das informações. A aplicação de testes de software, tanto unitários quanto de integração, foi fundamental para assegurar a qualidade e a confiabilidade do sistema. Essas etapas complementares foram essenciais para garantir que o sistema de controle de laboratórios fosse robusto, eficiente e adequado às necessidades da instituição.</p>
+
+        <h3>4.1. Requisitos Funcionais</h3>
+        <p>Os requisitos funcionais descrevem as funcionalidades que o sistema deve ter para atender às necessidades dos usuários.</p>
+        
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Prioridade</th>
+            </tr>
+            <tr>
+                <td>RF01</td>
+                <td>Permitir que os usuários (professores e funcionários) reservem laboratórios online.</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RF02</td>
+                <td>Exibir a disponibilidade dos laboratórios em um calendário.</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RF03</td>
+                <td>Permitir a reserva de laboratórios por data, hora e tipo de laboratório.</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RF04</td>
+                <td>Enviar notificações por e-mail ou SMS para confirmar as reservas.</td>
+                <td>Média</td>
+            </tr>
+            <tr>
+                <td>RF05</td>
+                <td>Permitir que os administradores gerenciem os horários e a disponibilidade dos laboratórios.</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RF06</td>
+                <td>Gerar relatórios de uso dos laboratórios.</td>
+                <td>Média</td>
+            </tr>
+            <tr>
+                <td>RF07</td>
+                <td>Permitir o cancelamento de reservas.</td>
+                <td>Média</td>
+            </tr>
+            <tr>
+                <td>RF08</td>
+                <td>Exibir o histórico de reservas de cada usuário.</td>
+                <td>Baixa</td>
+            </tr>
+            <tr>
+                <td>RF09</td>
+                <td>Permitir a reserva de equipamentos específicos dentro dos laboratórios.</td>
+                <td>Média</td>
+            </tr>
+            <tr>
+                <td>RF10</td>
+                <td>Integrar o sistema com o sistema de autenticação da escola.</td>
+                <td>Alta</td>
+            </tr>
+        </table>
+
+        <h3>4.2. Requisitos Não Funcionais</h3>
+        <p>Os requisitos não funcionais descrevem as características do sistema, como desempenho, segurança e usabilidade.</p>
+        
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Prioridade</th>
+            </tr>
+            <tr>
+                <td>RNF01</td>
+                <td>O sistema deve ser responsivo e acessível em diferentes dispositivos (computadores, tablets e smartphones).</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RNF02</td>
+                <td>O sistema deve ter uma interface intuitiva e fácil de usar.</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RNF03</td>
+                <td>O sistema deve ser seguro e proteger os dados dos usuários.</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RNF04</td>
+                <td>O sistema deve ter um tempo de resposta rápido.</td>
+                <td>Média</td>
+            </tr>
+            <tr>
+                <td>RNF05</td>
+                <td>O sistema deve ser escalável para suportar um grande número de usuários e reservas.</td>
+                <td>Média</td>
+            </tr>
+            <tr>
+                <td>RNF06</td>
+                <td>O sistema deve ser compatível com os principais navegadores da web.</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RNF07</td>
+                <td>O sistema deve ter um design moderno e agradável.</td>
+                <td>Baixa</td>
+            </tr>
+            <tr>
+                <td>RNF08</td>
+                <td>O sistema deve ser fácil de manter e atualizar.</td>
+                <td>Média</td>
+            </tr>
+            <tr>
+                <td>RNF09</td>
+                <td>O sistema deve estar disponível 24 horas por dia, 7 dias por semana.</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>RNF10</td>
+                <td>O sistema deve ter um manual do usuário e suporte técnico.</td>
+                <td>Média</td>
+            </tr>
+        </table>
+
+        <h2>5. Levantamento de Requisitos e Análise da Situação Atual</h2>
+        <h3>Pesquisa de Campo:</h3>
+        <p>Aplicação de questionários aos funcionários da Escola Senai de Itumbiara para coletar dados sobre as necessidades e dificuldades relacionadas ao uso dos laboratórios.</p>
+        <p>Observação direta do fluxo de utilização dos laboratórios para identificar gargalos e pontos de melhoria.</p>
+        
+        <h3>Análise de Requisitos:</h3>
+        <p>Identificação e documentação dos requisitos funcionais (o que o sistema deve fazer) e não funcionais (como o sistema deve ser).</p>
+        <p>Priorização dos requisitos com base na importância e urgência.</p>
+
+        <h2>6. Modelagem do Sistema</h2>
+        <h3>6.1. Diagrama de Caso de Uso (UML)</h3>
+        <p>Criação de diagramas para visualizar a interação entre os usuários (professores, alunos, administradores) e o sistema.</p>
+        <p>Mapeamento dos processos de reserva, cancelamento, gerenciamento e consulta de disponibilidade dos laboratórios.</p>
+        
+        <div class="figure">
+            <!-- Inserir imagem do diagrama UML aqui -->
+            <p>Figura 1: Diagrama de Caso de Uso do sistema</p>
+        </div>
+
+        <h3>6.2. Protótipos de Interface</h3>
+        <p>Desenvolvimento de protótipos para simular a experiência do usuário e validar a usabilidade do sistema.</p>
+        
+        <div class="figure">
+            <!-- Inserir imagens dos protótipos aqui -->
+            <p>Figura 2: Protótipos de interface do usuário</p>
+        </div>
+
+        <h3>6.3. Modelagem de Dados</h3>
+        <p>Definição da estrutura do banco de dados para garantir a integridade das informações.</p>
+        <p>Criação do modelo relacional.</p>
+        
+        <div class="figure">
+            <!-- Inserir imagem do modelo de dados aqui -->
+            <p>Figura 3: Modelo de dados do sistema</p>
+        </div>
+
+        <h2>7. Desenvolvimento e Implementação</h2>
+        <h3>7.1. Visão Geral do Sistema</h3>
+        <p>O sistema "LabControl" foi desenvolvido com o objetivo de gerenciar eficientemente os laboratórios da instituição, permitindo o controle de equipamentos, reservas e usuários. A aplicação foi construída utilizando o framework Django, que oferece uma estrutura robusta para o desenvolvimento de aplicações web em Python.</p>
+
+        <h3>7.2. Tecnologias Utilizadas</h3>
+        <ul>
+            <li><strong>Linguagem de Programação:</strong> Python 3</li>
+            <li><strong>Framework Web:</strong> Django 3</li>
+            <li><strong>Banco de Dados:</strong> SQLite</li>
+            <li><strong>Frontend:</strong> HTML5, CSS3</li>
+            <li><strong>Controle de Versão:</strong> Git</li>
+            <li><strong>Hospedagem do Código:</strong> GitHub</li>
+        </ul>
+
+        <h3>7.3. Estrutura do Projeto</h3>
+        <p>A estrutura do projeto está organizada da seguinte forma:</p>
+        <pre>
+labcontrol/
+├── labcontrol/ # Diretório principal do projeto Django
+│   ├── __init__.py
+│   ├── settings.py # Configurações do projeto
+│   ├── urls.py # Rotas principais
+│   └── wsgi.py
+├── labs/ # Aplicativo Django responsável pelas funcionalidades
+│   ├── migrations/
+│   ├── templates/ # Templates HTML
+│   ├── static/ # Arquivos estáticos (CSS, JS)
+│   ├── admin.py # Configurações do admin
+│   ├── apps.py
+│   ├── models.py # Modelos de dados
+│   ├── tests.py
+│   └── views.py # Lógicas das views
+├── db.sqlite3 # Banco de dados SQLite
+├── manage.py # Script de gerenciamento do Django
+└── README.md # Documentação do projeto
+        </pre>
+
+        <h3>7.4. Modelagem de Dados</h3>
+        <p>O sistema possui as seguintes entidades principais:</p>
+        <ul>
+            <li><strong>Laboratório:</strong> Representa os laboratórios disponíveis na instituição.</li>
+            <li><strong>Equipamento:</strong> Representa os equipamentos disponíveis nos laboratórios.</li>
+            <li><strong>Reserva:</strong> Registra as reservas feitas pelos usuários para utilização dos laboratórios.</li>
+        </ul>
+
+        <h4>Diagrama Entidade-Relacionamento (ER)</h4>
+        <div class="figure">
+            <!-- Inserir imagem do diagrama ER aqui -->
+            <p>Figura 4: Diagrama Entidade-Relacionamento do sistema</p>
+        </div>
+
+        <h3>7.5. Funcionalidades Implementadas</h3>
+        <ul>
+            <li><strong>Cadastro de Laboratórios:</strong> Permite o registro de novos laboratórios no sistema.</li>
+            <li><strong>Cadastro de Equipamentos:</strong> Permite o registro de equipamentos associados a um laboratório.</li>
+            <li><strong>Reserva de Laboratórios:</strong> Usuários podem realizar reservas para utilização dos laboratórios.</li>
+            <li><strong>Listagem e Detalhamento:</strong> Visualização de laboratórios, equipamentos e reservas.</li>
+            <li><strong>Autenticação de Usuários:</strong> Controle de acesso ao sistema mediante login e senha.</li>
+        </ul>
+
+        <h3>7.6. Interface do Usuário</h3>
+        <p>A interface do sistema foi desenvolvida utilizando HTML5 e CSS3, proporcionando uma experiência amigável e responsiva para os usuários. As páginas principais incluem:</p>
+        <ul>
+            <li><strong>Página Inicial:</strong> Apresenta uma visão geral dos laboratórios disponíveis.</li>
+            <li><strong>Página de Cadastro:</strong> Formulários para cadastro de laboratórios e equipamentos.</li>
+            <li><strong>Página de Reserva:</strong> Formulário para realização de reservas.</li>
+            <li><strong>Página de Listagem:</strong> Exibe listas de laboratórios, equipamentos e reservas.</li>
+        </ul>
+
+        <div class="figure">
+            <!-- Inserir capturas de tela das interfaces aqui -->
+            <p>Figura 5: Telas do sistema LabControl</p>
+        </div>
+
+        <h3>7.7. Testes Realizados</h3>
+        <p>Foram realizados testes manuais para verificar o correto funcionamento das funcionalidades implementadas, incluindo:</p>
+        <ul>
+            <li>Cadastro de laboratórios e equipamentos.</li>
+            <li>Realização de reservas.</li>
+            <li>Autenticação de usuários.</li>
+            <li>Navegação entre as páginas do sistema.</li>
+        </ul>
+
+        <h3>7.8. Considerações Finais</h3>
+        <p>O sistema "LabControl" atende aos requisitos propostos, proporcionando uma solução eficiente para o gerenciamento de laboratórios. A utilização do Django facilitou o desenvolvimento e a manutenção do código, enquanto o uso do GitHub permitiu o controle de versões e a colaboração no projeto.</p>
+
+        <h2>8. Referências</h2>
+        
+    </div>
+</body>
+</html>
