@@ -1,0 +1,46 @@
+{% extends 'labs/base.html' %}
+
+{% block title %}Calendário de Reservas{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Calendário de Reservas</h2>
+
+<!-- Div onde o calendário será carregado -->
+<div id='calendar'></div>
+
+<!-- FullCalendar CSS -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css' rel='stylesheet' />
+
+<!-- FullCalendar JS -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'pt-br',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: '/api/eventos/', // Rota para carregar os eventos
+        height: 'auto'
+    });
+
+    calendar.render();
+});
+</script>
+
+<style>
+#calendar {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+}
+</style>
+{% endblock %}

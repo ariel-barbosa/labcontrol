@@ -47,11 +47,25 @@ from datetime import date
 from django.shortcuts import render, get_object_or_404
 from .models import Laboratorio, Reserva
 
-def laboratorio_detail(request, pk):
-    atualizar_disponibilidade_laboratorios()
+from django.utils.timezone import now
 
+def laboratorio_detail(request, pk):
     laboratorio = get_object_or_404(Laboratorio, id=pk)
-    hoje = date.today()
+    hoje = localdate()
+
+    # 🔁 Verifica reservas futuras ou em andamento
+    reservas_ativas = Reserva.objects.filter(
+        laboratorio=laboratorio,
+        data=hoje,
+        hora_fim__gte=now().time()
+    )
+
+    # ⛔ Se não houver reservas futuras ou em andamento, libera o laboratório
+    if not reservas_ativas.exists():
+        laboratorio.disponivel = True
+        laboratorio.save()
+
+    # Mostra as reservas de hoje
     reservas_hoje = Reserva.objects.filter(
         laboratorio=laboratorio,
         data=hoje
@@ -65,6 +79,7 @@ def laboratorio_detail(request, pk):
 
 
 
+
 # ✅ View de reserva com aprovação automática
 @login_required
 def reservar_laboratorio(request):
@@ -73,14 +88,14 @@ def reservar_laboratorio(request):
         if form.is_valid():
             reserva = form.save(commit=False)
             reserva.usuario = request.user
-            # ✅ Aprovar automaticamente
-            reserva.status = 'aprovado'  # ou True se usar BooleanField
+            reserva.status = 'indisponivel'  # Ocupa o laboratório
             reserva.save()
             messages.success(request, 'Reserva feita com sucesso.')
             return redirect('minhas_reservas')
     else:
         form = ReservaForm()
     return render(request, 'labs/reservar.html', {'form': form})
+
 
 
 @login_required
@@ -154,3 +169,25 @@ def atualizar_disponibilidade_laboratorios():
         lab.disponivel = not reservas_ativas.exists()
         lab.save()
 
+
+
+from django.http import JsonResponse
+from django.shortcuts import render
+from .models import Reserva
+
+def calendario(request):
+    return render(request, 'labs/calendario.html')
+
+def eventos_json(request):
+    reservas = Reserva.objects.all()
+    eventos = []
+
+    for reserva in reservas:
+        eventos.append({
+            'title': f"{reserva.laboratorio.nome}",
+            'start': f"{reserva.data}T{reserva.hora_inicio}",
+            'end': f"{reserva.data}T{reserva.hora_fim}",
+            'color': '#f59e0b' if reserva.status == 'indisponivel' else '#10b981'
+        })
+
+    return JsonResponse(eventos, safe=False)

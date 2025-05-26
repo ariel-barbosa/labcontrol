@@ -3,6 +3,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
+    <!-- head do base.html -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LabFlow - {% block title %}{% endblock %}</title>
@@ -91,9 +96,12 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     {% if user.is_authenticated %}
+                    
                     <li class="nav-item"><a class="nav-link" href="{% url 'laboratorios' %}"><i class="bi bi-building"></i> Laboratórios</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'reservar' %}"><i class="bi bi-calendar-plus"></i> Reservar</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'minhas_reservas' %}"><i class="bi bi-list-check"></i> Minhas Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'calendario' %}"><i class="bi bi-calendar3"></i> Calendário</a></li>
+
                     {% endif %}
                 </ul>
 

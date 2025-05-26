@@ -22,4 +22,7 @@ urlpatterns = [
     path('admin/laboratorios/add/', views.admin_add_laboratorio, name='admin_add_laboratorio'),
     path('admin/laboratorios/edit/<int:pk>/', views.admin_edit_laboratorio, name='admin_edit_laboratorio'),
     path('admin/laboratorios/delete/<int:pk>/', views.admin_delete_laboratorio, name='admin_delete_laboratorio'),
+
+    path('calendario/', views.calendario, name='calendario'),
+    path('api/eventos/', views.eventos_json, name='eventos_json'),
 ]

@@ -22,6 +22,11 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from .models import Laboratorio
 
+from django.db import models
+from django.contrib.auth import get_user_model
+
+from datetime import datetime, time
+
 class Reserva(models.Model):
     laboratorio = models.ForeignKey(Laboratorio, on_delete=models.CASCADE)
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
@@ -29,6 +34,21 @@ class Reserva(models.Model):
     hora_inicio = models.TimeField()
     hora_fim = models.TimeField()
 
-    def __str__(self):
-        return f'{self.laboratorio.nome} - {self.data} ({self.hora_inicio} - {self.hora_fim})'
+    STATUS_CHOICES = [
+        ('disponivel', 'Disponível'),
+        ('indisponivel', 'Indisponível'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='indisponivel')
+
+    @property
+    def status_atual(self):
+        agora = datetime.now()
+        hoje = agora.date()
+        agora_hora = agora.time()
+
+        if self.data > hoje:
+            return 'disponivel'
+        elif self.data == hoje and self.hora_fim > agora_hora:
+            return 'disponivel'
+        return 'indisponivel'
 
