@@ -112,6 +112,83 @@ GitHub
 📄 Licença
 Este projeto está licenciado sob a Licença MIT. Consulte o arquivo LICENSE para mais detalhes.
 
+#############################################################################################
+#############################################################################################
+
+# Dependências do Projeto LabControl
+
+## Requisitos do Sistema
+
+- Python 3.8 ou superior
+- Django 5.1 ou superior
+- Banco de dados (SQLite3 padrão ou PostgreSQL para produção)
+- Node.js (para recursos frontend opcionais)
+
+## Dependências Principais
+
+### Core Django
+- `Django` (>=5.1.7) - Framework web principal
+- `django-crispy-forms` (>=2.0) - Para formulários estilizados
+- `crispy-bootstrap5` (>=2022.1) - Template pack para Bootstrap 5
+- `django-widget-tweaks` (>=1.5.0) - Para personalização de widgets de formulários
+
+### Banco de Dados
+- `psycopg2-binary` (>=2.9.0) - Adaptador PostgreSQL (opcional para produção)
+- `sqlite3` - Incluído no Python (para desenvolvimento)
+
+### Desenvolvimento
+- `black` (>=22.0) - Formatador de código Python
+- `pytest` (>=7.0) - Framework de testes
+- `pytest-django` (>=4.5.0) - Plugin para testar projetos Django
+- `Faker` (>=12.0) - Geração de dados de teste
+
+### Frontend
+- `Bootstrap 5` (>=5.1.3) - Framework CSS
+- `jQuery` (>=3.6.0) - Biblioteca JavaScript
+- `Font Awesome` (>=5.15.4) - Ícones
+- `DataTables` (>=1.11.3) - Para tabelas interativas (opcional)
+
+## Instalação
+
+1. Crie e ative um ambiente virtual:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+```
+
+2. Instale as dependências:
+```bash
+pip install django crispy-forms crispy-bootstrap5 django-widget-tweaks psycopg2-binary
+```
+
+3. Para desenvolvimento, instale também:
+```bash
+pip install black pytest pytest-django Faker
+```
+
+## Arquivo requirements.txt exemplo
+
+```
+Django==5.1.7
+django-crispy-forms==2.0
+crispy-bootstrap5==2022.1
+django-widget-tweaks==1.5.0
+psycopg2-binary==2.9.0
+black==22.0
+pytest==7.0
+pytest-django==4.5.0
+Faker==12.0
+```
+
+## Configuração Adicional
+
+Para usar PostgreSQL em produção, descomente a configuração do banco de dados em `settings.py` e certifique-se de ter o `psycopg2-binary` instalado.
+
+Para recursos frontend adicionais, inclua os arquivos CSS/JS do Bootstrap, jQuery e outras bibliotecas no diretório `static/` do seu projeto.
+
+
+
 👨‍💻 Autor
 Desenvolvido por Ariel Barbosa Santos, estudante de Análise e Desenvolvimento de Sistemas no SENAI - Itumbiara.
 GitHub
