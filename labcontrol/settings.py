@@ -78,6 +78,18 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres.rgzxznjawzxwglantuwh',
+#         'PASSWORD': '6a3PHkbngtnfeosC',
+#         'HOST': 'aws-0-sa-east-1.pooler.supabase.com',
+#         'PORT': '5432',
+#         'OPTIONS': {'sslmode': 'require'}
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -123,8 +135,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Durante desenvolvimento:
-STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
 
 # Default primary key field type
